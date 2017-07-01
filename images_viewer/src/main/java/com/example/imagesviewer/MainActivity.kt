@@ -1,6 +1,7 @@
 package com.example.imagesviewer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Environment
@@ -63,6 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         listImages.adapter = ImageListAdapter(images, { path, position ->
             log("position: $position path : $path ")
+            startActivity(Intent(this, ImageDisplayActivity::class.java).apply {
+                putExtra(ImageDisplayActivity.ARG_PATH, path)
+            })
         })
 
 
@@ -78,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             val path = images[position]
 
             holder.itemView.itemImage.setImagePath(path)
+
             holder.itemView.textTitle.text = File(path).nameWithoutExtension
             //add click reaction
             holder.itemView.itemImage.setOnClickListener {

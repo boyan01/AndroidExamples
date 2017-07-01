@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 
@@ -37,30 +38,30 @@ fun File.isImageFile(): Boolean {
 @Suppress("DEPRECATION")
 fun ImageView.setImagePath(imagePath: String,
                            widthWant: Int = (context.getSystemService(Context.WINDOW_SERVICE)
-                                   as WindowManager).defaultDisplay.width / 3) {
-    Observable
-            .create<Bitmap> {
-                //load image  (load empty bitmap first , load real image second)
-                it.onNext(getImageByPath(imagePath, BitmapFactory.Options().apply {
-                    inJustDecodeBounds = true
-                    BitmapFactory.decodeFile(imagePath, this)
-                    val width = outWidth
-                    val height = outHeight
+                                   as WindowManager).defaultDisplay.width / 3): Disposable =
+        Observable
+                .create<Bitmap> {
+                    //load image  (load empty bitmap first , load real image second)
+                    it.onNext(getImageByPath(imagePath, BitmapFactory.Options().apply {
+                        inJustDecodeBounds = true
+                        BitmapFactory.decodeFile(imagePath, this)
+                        val width = outWidth
+                        val height = outHeight
 
-                    //first fill a loading bitmap to image view
-                    val heightWant = ((widthWant.toFloat() * height) / width).toInt()
-                    it.onNext(createPlaceHolderImage(widthWant, heightWant))
+                        //first fill a loading bitmap to image view
+                        val heightWant = ((widthWant.toFloat() * height) / width).toInt()
+                        it.onNext(createPlaceHolderImage(widthWant, heightWant))
 
-                    inSampleSize = width / widthWant //
-                    inJustDecodeBounds = false
-                }))
-            }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                this.setImageBitmap(it)
-            }
-}
+                        inSampleSize = width / widthWant //
+                        inJustDecodeBounds = false
+                    }))
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    this.setImageBitmap(it)
+                }
+
 
 /**
  * set a blank image to the image view , show the loading action
@@ -94,6 +95,10 @@ fun getImageByPath(imagePath: String, options: BitmapFactory.Options): Bitmap {
     options.log("original bitmap : width = ${options.outWidth} height = ${options.outHeight}")
     val bitmap = BitmapFactory.decodeFile(imagePath, options)
     options.log("scaled bitmap : width = ${bitmap.width} height = ${bitmap.height}")
-    Thread.sleep((5000 * Math.random()).toLong())// let it sleep seconds to simulate "delay loading"
+    try {
+        Thread.sleep((5000 * Math.random()).toLong())// let it sleep seconds to simulate "delay loading"
+    } catch (e: InterruptedException) {
+        
+    }
     return bitmap
 }

@@ -38,4 +38,10 @@ dependencies {
     //rx java
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+
+    //glide
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
 }
