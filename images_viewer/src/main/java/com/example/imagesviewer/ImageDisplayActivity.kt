@@ -13,13 +13,17 @@ class ImageDisplayActivity : AppCompatActivity() {
         val ARG_PATH = "image_path"
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_display)
         val path: String? = intent.getStringExtra(ARG_PATH)
-        image.setBackgroundResource(android.R.color.transparent)
+        log("path : $path")
+
         path?.let {
-            image.setImage(ImageSource.uri(Uri.fromFile(File(it))))
+            image.setImage(it)
+//            image.setImage(ImageSource.uri(Uri.fromFile(File(it))))
         }
     }
+
 }

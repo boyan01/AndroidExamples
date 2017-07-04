@@ -28,6 +28,7 @@ fun Any.log(message: String?, tag: String = this.javaClass.name.substringAfterLa
     }
 }
 
+
 private fun String.asTag() =
         if (length <= 22) this else substring(0, 22)
 
@@ -37,22 +38,19 @@ fun File.isImageFile(): Boolean {
 
 @Suppress("DEPRECATION")
 fun ImageView.setImagePath(imagePath: String,
-                           widthWant: Int = (context.getSystemService(Context.WINDOW_SERVICE)
-                                   as WindowManager).defaultDisplay.width / 3): Disposable =
+                           widthWant: Int = (context.getScreenWidthHeight().first) / 3): Disposable =
         Observable
                 .create<Bitmap> {
                     //load image  (load empty bitmap first , load real image second)
                     it.onNext(getImageByPath(imagePath, BitmapFactory.Options().apply {
                         inJustDecodeBounds = true
                         BitmapFactory.decodeFile(imagePath, this)
-                        val width = outWidth
-                        val height = outHeight
 
                         //first fill a loading bitmap to image view
-                        val heightWant = ((widthWant.toFloat() * height) / width).toInt()
+                        val heightWant = ((widthWant.toFloat() * outHeight) / outWidth).toInt()
                         it.onNext(createPlaceHolderImage(widthWant, heightWant))
 
-                        inSampleSize = width / widthWant //
+                        inSampleSize = outWidth / widthWant //
                         inJustDecodeBounds = false
                     }))
                 }
@@ -61,6 +59,7 @@ fun ImageView.setImagePath(imagePath: String,
                 .subscribe {
                     this.setImageBitmap(it)
                 }
+
 
 
 /**
@@ -98,7 +97,14 @@ fun getImageByPath(imagePath: String, options: BitmapFactory.Options): Bitmap {
     try {
         Thread.sleep((5000 * Math.random()).toLong())// let it sleep seconds to simulate "delay loading"
     } catch (e: InterruptedException) {
-        
+
     }
     return bitmap
+}
+
+
+fun Context.getScreenWidthHeight(): Pair<Int, Int> {
+    val point = Point()
+    (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+    return point.x to point.y
 }
