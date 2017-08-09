@@ -216,7 +216,7 @@ class RegionImageView : View, ViewTreeObserver.OnGlobalLayoutListener {
 
         bitmapRegion?.let {
             val screen = getDisplayRegion()
-            canvas.drawBitmap(it, null, getDisplayRegion(), paint)
+            canvas.drawBitmap(it, null, screen, paint)
             rectFPool.restore(screen)
         }
 
@@ -313,6 +313,7 @@ class RegionImageView : View, ViewTreeObserver.OnGlobalLayoutListener {
     /**
      * get the point in this rect which mapping p point from src Rect
      */
+    @Suppress("unused")
     private fun RectF.getMappingPoint(p: PointF, src: RectF) = PointF(
             getMappingX(p.x, src),
             getMappingY(p.y, src)
@@ -433,7 +434,6 @@ class RegionImageView : View, ViewTreeObserver.OnGlobalLayoutListener {
          */
         fun get(): T {
             if (objects.size == 0) {
-                size *= 2
                 return generateAnObject()
             }
             return reset(objects.poll())
