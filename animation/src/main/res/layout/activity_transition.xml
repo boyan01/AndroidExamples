@@ -8,6 +8,10 @@
     tools:context="com.example.animation.TransitionActivity"
     tools:ignore="HardcodedText">
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <include
         layout="@layout/scene_player_collapsed"
@@ -16,11 +20,11 @@
     <include layout="@layout/scene_player_expanded" />
 
     <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:max="1000"
-        android:id="@+id/seekBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
