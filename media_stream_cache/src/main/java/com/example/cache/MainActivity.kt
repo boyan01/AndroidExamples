@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         button.setOnClickListener {
-            mediaPlay.setDataSource(url)
+            mediaPlay.setDataSource(CachedMediaDataSource(url))
             mediaPlay.prepareAsync()
             mediaPlay.setAudioStreamType(AudioManager.STREAM_MUSIC)
             mediaPlay.setOnPreparedListener {
