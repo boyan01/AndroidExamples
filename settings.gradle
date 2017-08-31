@@ -1,1 +1,1 @@
-include ':app', ':user_guide', ':images_viewer', ':animation'
+include ':app', ':user_guide', ':images_viewer', ':animation', ':media_stream_cache'

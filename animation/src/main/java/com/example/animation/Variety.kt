@@ -28,6 +28,9 @@ class Variety {
     private val pointEvaluator = PointFEvaluator(PointF())
     private val colorEvaluator = ArgbEvaluator()
 
+    private val layoutVarieties = mutableMapOf<View, Change<PointF>>()
+
+
     private val start: View
     private val end: View
 
@@ -61,7 +64,12 @@ class Variety {
         if (background1 is ColorDrawable && background2 is ColorDrawable) {
             colorVarieties.put(viewStart.id, background1.color v background2.color)
         }
-        scaleVarieties.put(viewStart.id, PointF(1f, 1f) v PointF(viewEnd.width.toFloat() / viewStart.width, viewEnd.height.toFloat() / viewStart.height))
+//        scaleVarieties.put(viewStart.id, PointF(1f, 1f) v PointF(viewEnd.width.toFloat() / viewStart.width, viewEnd.height.toFloat() / viewStart.height))
+
+        layoutVarieties.put(viewStart,
+                PointF(viewStart.width.toFloat(), viewStart.height.toFloat())
+                        v PointF(viewEnd.width.toFloat(), viewEnd.height.toFloat()))
+
     }
 
     infix fun <T> T.v(that: T): Change<T> = Change(this, that)
@@ -96,6 +104,16 @@ class Variety {
             val scale = pointEvaluator.evaluate(fraction, it.value.start, it.value.end)
             view.scaleX = scale.x
             view.scaleY = scale.y
+        }
+
+
+        layoutVarieties.forEach {
+            val layout = pointEvaluator.evaluate(fraction, it.value.start, it.value.end)
+//                log("${it.key} width height to  = $layout")
+            val params = it.key.layoutParams
+            params.width = layout.x.toInt()
+            params.height = layout.y.toInt()
+            it.key.layoutParams = params
         }
     }
 }
