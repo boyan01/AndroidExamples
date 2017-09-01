@@ -47,11 +47,18 @@ class MainActivity : AppCompatActivity() {
                 val currentPosition = mediaPlay.currentPosition
                 val duration = mediaPlay.duration
                 uiThread {
-                    textView.text = "%d / %d".format(currentPosition, duration)
+                    textView.text = "%s / %s".format(currentPosition.toMusicTimeStamp(),
+                            duration.toMusicTimeStamp())
                 }
                 Thread.sleep(1000)
             }
         }
+    }
+
+    private fun Int.toMusicTimeStamp(): String = with(this / 1000) {
+        val second = this % 60
+        val minute = this / 60
+        "%02d:%02d".format(minute, second)
     }
 
 

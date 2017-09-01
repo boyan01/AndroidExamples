@@ -15,7 +15,20 @@ class CachedMediaDataSource(url: String) : MediaDataSource() {
 
     private val inputStream by lazy {
         //use CachedInputStream to wrap url stream
-        CachedInputStream(URL(url).openStream(), CacheHelper.buildCachedFilePath(url))
+
+        val cache = FileCache(CacheHelper.buildCachedFile(url), object : CacheStrategy {
+            override fun onFileCached(file: File) {
+                //do nothing...
+            }
+        })
+        if (!cache.isComplete) {
+            val urlConnection = URL(url).openConnection()
+            val contentLength = urlConnection.contentLength.toLong()
+            CachedInputStream(urlConnection.getInputStream(),
+                    cache)
+        } else {
+            CachedInputStream(cache)
+        }
     }
 
     override fun readAt(position: Long, buffer: ByteArray, offset: Int, size: Int): Int {
@@ -23,7 +36,7 @@ class CachedMediaDataSource(url: String) : MediaDataSource() {
         if (size == 0) {
             return 0
         }
-        return inputStream.read(buffer, offset, size)
+        return inputStream.read(position, buffer, offset, size)
     }
 
     override fun getSize(): Long {
@@ -35,7 +48,6 @@ class CachedMediaDataSource(url: String) : MediaDataSource() {
         inputStream.close()
     }
 
-
     private object CacheHelper {
 
         /**
@@ -45,7 +57,7 @@ class CachedMediaDataSource(url: String) : MediaDataSource() {
             File(AppContext.instance.externalCacheDir, "media_cache").apply { mkdirs() }
         }
 
-        fun buildCachedFilePath(url: String) = File(dirCache, getCachedFileName(url)).path
+        fun buildCachedFile(url: String) = File(dirCache, getCachedFileName(url))
 
         fun getCachedFileName(url: String): String {
             return url.substringAfterLast('/')
