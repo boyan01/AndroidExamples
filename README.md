@@ -20,3 +20,7 @@ display a list of images. now the RegionImageView can display a big image withou
 ## module : animation 
 make possible  to control scene  transition,and easy to implement.(but it is just a prototype now)
 ![animation](images/animation_scene.gif)
+
+## module : cache
+
+provide a simple way to cache a media file when playing...
