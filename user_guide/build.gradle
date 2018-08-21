@@ -1,18 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
-
-
+    compileSdkVersion compile_sdk.toInteger()
     defaultConfig {
         applicationId "com.example.view"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion min_sdk.toInteger()
+        targetSdkVersion target_sdk.toInteger()
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
 
     }
     buildTypes {
