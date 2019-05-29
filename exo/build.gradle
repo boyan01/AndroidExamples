@@ -1,0 +1,11 @@
+apply from: "../app_build_script.gradle"
+
+android {
+    defaultConfig {
+        applicationId "com.example.exo"
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.1'
+}

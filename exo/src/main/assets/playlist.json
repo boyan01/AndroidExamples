@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Clock",
+    "url": "sdcard/Movies/Clock.mp4",
+    "hasAd": true
+  },
+  {
+    "name": "Galaxy",
+    "url": "sdcard/Movies/Galaxy.mp4"
+  },
+  {
+    "name": "SampleVideo",
+    "url": "sdcard/Movies/SampleVideo.mp4",
+    "hasAd": true
+  },
+  {
+    "name": "SpaceTravel",
+    "url": "sdcard/Movies/SpaceTravel.mp4",
+    "hasAd": true
+  }
+]
