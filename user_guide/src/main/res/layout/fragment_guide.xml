@@ -12,7 +12,7 @@
         tools:ignore="UselessLeaf"
         tools:visibility="gone" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/guideContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,5 +61,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

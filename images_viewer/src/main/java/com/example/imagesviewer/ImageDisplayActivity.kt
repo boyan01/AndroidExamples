@@ -2,7 +2,7 @@ package com.example.imagesviewer
 
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.davemorrissey.labs.subscaleview.ImageSource
 import kotlinx.android.synthetic.main.activity_image_display.*
 import java.io.File

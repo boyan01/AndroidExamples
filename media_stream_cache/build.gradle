@@ -1,25 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply from: "../app_build_script.gradle"
+
 android {
-    compileSdkVersion compile_sdk.toInteger()
     defaultConfig {
         applicationId "com.example.cache"
-        minSdkVersion min_sdk.toInteger()
-        targetSdkVersion target_sdk.toInteger()
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-
     }
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

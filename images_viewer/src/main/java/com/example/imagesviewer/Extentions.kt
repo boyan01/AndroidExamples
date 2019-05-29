@@ -2,8 +2,8 @@ package com.example.imagesviewer
 
 import android.content.Context
 import android.graphics.*
-import android.support.annotation.ColorInt
-import android.support.annotation.WorkerThread
+import androidx.annotation.ColorInt
+import androidx.annotation.WorkerThread
 import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView

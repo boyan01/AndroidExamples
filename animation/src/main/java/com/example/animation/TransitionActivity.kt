@@ -2,7 +2,7 @@ package com.example.animation
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_transition.*
 import kotlinx.android.synthetic.main.scene_player_expanded.*

@@ -8,8 +8,8 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
         }
 
-        listImages.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        listImages.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
                 outRect.left = SPACE_DECORATION
                 outRect.right = SPACE_DECORATION
                 outRect.bottom = SPACE_DECORATION
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
 
     class ImageListAdapter(val images: ArrayList<String>
-                           , val itemReaction: ((String, Int) -> Unit)? = null) : RecyclerView.Adapter<ImageListAdapter.Holder>() {
+                           , val itemReaction: ((String, Int) -> Unit)? = null) : androidx.recyclerview.widget.RecyclerView.Adapter<ImageListAdapter.Holder>() {
 
 
         override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 Holder(LayoutInflater.from(parent.context).inflate(R.layout.item_image, null, false))
 
 
-        class Holder(view: View) : RecyclerView.ViewHolder(view)
+        class Holder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view)
 
     }
 
