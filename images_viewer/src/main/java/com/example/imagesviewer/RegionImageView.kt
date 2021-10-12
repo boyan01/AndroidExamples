@@ -134,7 +134,7 @@ class RegionImageView : View, ViewTreeObserver.OnGlobalLayoutListener {
     /**
      * if need, display the high definition picture on screen
      */
-    fun displayHDImage() {
+    private fun displayHDImage() {
         //if raw image has never been scaled
         if (options.inSampleSize == 1) {
             return

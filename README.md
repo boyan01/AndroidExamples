@@ -13,7 +13,7 @@ a simple user guide activity with some color gradient effect.
 display a list of images. now the RegionImageView can display a big image without OOM.
 **here we go**
 
-| lmageList                                | bigImage                                 |
+| imageList                                | bigImage                                 |
 | ---------------------------------------- | ---------------------------------------- |
 | ![images_viewer](images/images_viewer.gif) | ![display](images/images_viewer_display.gif) |
 

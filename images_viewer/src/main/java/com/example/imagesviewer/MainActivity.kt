@@ -8,11 +8,10 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_image.view.*
 import java.io.File
@@ -30,17 +29,17 @@ class MainActivity : AppCompatActivity() {
     /**
      * data
      */
-    val images = ArrayList<String>()
-
-    /**
-     * default grid view decoration width
-     */
-    val SPACE_DECORATION = 16
+    private val images = ArrayList<String>()
 
 
     companion object {
         val DEFAULT_PATH_PICTURE: String =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).path
+
+        /**
+         * default grid view decoration width
+         */
+        const val SPACE_DECORATION = 16
 
     }
 
@@ -72,19 +71,18 @@ class MainActivity : AppCompatActivity() {
         }
         log("images: \n $images")
 
-        listImages.adapter = ImageListAdapter(images, { path, position ->
+        listImages.adapter = ImageListAdapter(images) { path, position ->
             log("position: $position path : $path ")
             startActivity(Intent(this, ImageDisplayActivity::class.java).apply {
                 putExtra(ImageDisplayActivity.ARG_PATH, path)
             })
-        })
+        }
 
 
     }
 
 
-    class ImageListAdapter(val images: ArrayList<String>
-                           , val itemReaction: ((String, Int) -> Unit)? = null) : androidx.recyclerview.widget.RecyclerView.Adapter<ImageListAdapter.Holder>() {
+    class ImageListAdapter(private val images: ArrayList<String>, private val itemReaction: ((String, Int) -> Unit)? = null) : androidx.recyclerview.widget.RecyclerView.Adapter<ImageListAdapter.Holder>() {
 
 
         override fun onBindViewHolder(holder: Holder, position: Int) {
